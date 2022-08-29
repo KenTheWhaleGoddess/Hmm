@@ -9,9 +9,9 @@ import "./INLL.sol";
 
 contract NLLFactory is Ownable {
 
-    address implementation;
+    address currentImplementation;
     address multisig;
-    uint256 counter;
+    uint256 public counter;
 
     mapping(address => uint256) nftToNllIndex;
     mapping(uint256 => address) deployedImplementations;
@@ -36,7 +36,7 @@ contract NLLFactory is Ownable {
         require(nftToNllIndex[_nft] == 0, "we already have a NLL for this collection");
         counter++;
 
-        address impl = LibClone.clone(implementation);
+        address impl = LibClone.clone(currentImplementation);
 
         INLL implStruct = INLL(impl);
         implStruct.init(address(this), _nft, multisig);
@@ -86,6 +86,6 @@ contract NLLFactory is Ownable {
     }
 
     function setImplementation(address impl) external onlyOwner {
-        implementation = impl;
+        currentImplementation = impl;
     }
 }
