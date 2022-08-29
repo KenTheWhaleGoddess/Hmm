@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm update
-      - run: npm install @openzeppelin/contracts      
+      - run: npm install --save-dev @openzeppelin/contracts      
       - run: npm audit fix
       - run: npm ci
       - uses: crytic/slither-action@v0.1.1
