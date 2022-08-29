@@ -10,7 +10,6 @@ import "./INLL.sol";
 contract NLLFactory is Ownable {
 
     address currentImplementation;
-    address multisig;
     uint256 public counter;
 
     mapping(address => uint256) nftToNllIndex;
@@ -39,7 +38,7 @@ contract NLLFactory is Ownable {
         address impl = LibClone.clone(currentImplementation);
 
         INLL implStruct = INLL(impl);
-        implStruct.init(address(this), _nft, multisig);
+        implStruct.init(address(this), _nft);
 
         deployedImplementations[counter] = impl;
         nftToNllIndex[_nft] = counter;
