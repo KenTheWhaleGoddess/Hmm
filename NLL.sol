@@ -65,14 +65,19 @@ contract CryptoPhunksMarket is ReentrancyGuard, Pausable {
     function clonerAddress() public view returns (address) {
       return cloner;
     }
+    function init(address _cloner, address _nft) external {
+        require(address(phunksContract) == address(0) && cloner == address(0), "cannot init again");
+        cloner = _cloner;
+        phunksContract = IERC721(_nft);
+    }
 
     /* Allows the owner of the contract to set a new CryptoPhunks contract address */
     function setPhunksContract(address newPhunksAddress) external onlyOwner {
       phunksContract = IERC721(newPhunksAddress);
     }
     /* Allows the owner of the contract to set a new CryptoPhunks contract address */
-    function setClonerAddress(address newPhunksAddress) external onlyOwner {
-      phunksContract = IERC721(newPhunksAddress);
+    function setClonerAddress(address newClonerAddress) external onlyOwner {
+      cloner = newClonerAddress;
     }
 
     /* Allows the owner of a CryptoPhunks to stop offering it for sale */
