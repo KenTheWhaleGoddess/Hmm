@@ -13,4 +13,4 @@ jobs:
         with:
           node-version: 16.15.0 
           target: src/contracts
-          solc-version: 0.8.7;
+          solc-version: 0.8.10
