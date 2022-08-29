@@ -16,6 +16,13 @@ contract NLLFactory is Ownable {
     mapping(address => uint256) nftToNllIndex;
     mapping(uint256 => address) deployedImplementations;
 
+
+    constructor (address _multisig, address _nft) {
+        transferOwnership(_multisig);
+        clone(_nft);
+        INLL(nftToDeployedImplementation(_nft)).pause();
+    }
+
     function nftToDeployedImplementation(address _nft) public view returns (address) {
         uint c = nftToNllIndex[_nft];
         //if (c == 0) return address(0); omitted for gas
@@ -24,12 +31,6 @@ contract NLLFactory is Ownable {
     function nftToNotLarvaLabsIndex(address _nft) public view returns (uint) {
         return nftToNllIndex[_nft];
     }
-
-    constructor (address _multisig, address _nft) {
-        transferOwnership(_multisig);
-        clone(_nft);
-    }
-
 
     function clone(address _nft) public {
         require(nftToNllIndex[_nft] == 0, "we already have a NLL for this collection");
