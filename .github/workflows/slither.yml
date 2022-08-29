@@ -5,6 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: "OpenZeppelin/openzeppelin-contracts/master"
+    
       - run: npm update
       - run: npm install --save-dev @openzeppelin/contracts      
       - run: npm audit fix
