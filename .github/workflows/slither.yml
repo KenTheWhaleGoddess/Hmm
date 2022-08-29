@@ -12,5 +12,3 @@ jobs:
         with:
           node-version: 16.15.0 
           solc-version: 0.8.10
-          slither-args: "-solc-remaps @=node_modules/@"
-          target: "."
