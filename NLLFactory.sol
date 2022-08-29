@@ -32,7 +32,7 @@ contract NLLFactory is Ownable {
         return nftToNllIndex[_nft];
     }
 
-    function clone(address _nft) public {
+    function clone(address _nft) public returns (uint256) {
         require(nftToNllIndex[_nft] == 0, "we already have a NLL for this collection");
         counter++;
 
@@ -43,6 +43,7 @@ contract NLLFactory is Ownable {
 
         deployedImplementations[counter] = impl;
         nftToNllIndex[_nft] = counter;
+        return counter;
     }  
 
     function migrateCloner(address newCloner) external onlyOwner {
